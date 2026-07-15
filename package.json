@@ -1,16 +1,21 @@
 {
   "name": "task_tracker(jst-chill')",
+  "bin": {
+    "todo-cli":"./index.js"
+  },
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "task_cli": "node index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "minimist": "^1.2.8",
     "process": "^0.11.10"
   }
 }
