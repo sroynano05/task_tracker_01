@@ -24,6 +24,7 @@ export function add(cache) {
 }
     data_ob.push({ "id": id, "description": description,"status":"in-progress","CreateAt":new Date(),"UpdateAt":new Date()});
     fs.writeFileSync(filePath, JSON.stringify(data_ob, null, 2), 'utf8');
+    console.log("Log successfully Added")
     console.log(JSON.stringify(data_ob));
 }
 export function update(cache){
@@ -78,11 +79,19 @@ export function mark(cache){
                 if(val["id"]==id&&(String(status)=="done"||String(status)=="todo")){
                      val["status"]=String(status)
                      val["UpdateAt"]=new Date
+                     console.log(`Id ${id} is successfully added`)
+                }
+                else {
+                     throw new Error("Mismatch error ocuured")
                 }
     })
     fs.writeFileSync(filePath, JSON.stringify(data_ob, null, 2), 'utf8');
     console.log(data_ob);
             } catch (e) {
+                if(e.message.includes("Mismatch error ocuured")){
+                    console.error(e.message)
+                    return
+                }
                 data_ob = [];
             }
         }
@@ -99,10 +108,19 @@ export function del(cache){
                 data_ob = Array.isArray(parsedData) ? parsedData : []; 
                 data_ob.map((val,index)=>{
                 if(val["id"]==id){
-                     data_ob.filter(val=>val["id"]!==id)
+                     data_ob=data_ob.filter(val=>val["id"]!==id)
+                     fs.writeFileSync(filePath, JSON.stringify(data_ob, null, 2), 'utf8');
+                     console.log(`Id ${id} is successfully deleted`)
+                }
+                else {
+                    throw new Error("Id not found")
                 }
     })
             } catch (e) {
+                if(e.message.includes("Id not found")){
+                    console.error(e.message)
+                    return;
+                }
                 data_ob = [];
             }
         }
@@ -117,12 +135,18 @@ export  function read(cache){
             try {
                 const parsedData = JSON.parse(ata);
                 data_ob = Array.isArray(parsedData) ? parsedData : [];
+                if(data_ob==[]) {
+                    console.log("Empty Log !!!")
+                }
+                else{
+                    console.log(data_ob);
+                }
+                    
             } catch (e) {
                 data_ob = [];
             }
         }
     }
-    console.log(data_ob);
    }catch(error){
     console.log("Ops!Error ocurred while reading the data",error);
    }
