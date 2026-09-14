@@ -6,7 +6,8 @@ If you get any error please let me know
 [click here to visit project idea](https://roadmap.sh/projects/task-tracker)  
 [Solution link from website](https://roadmap.sh/projects/task-tracker/solutions?u=66e2b10512af4935a0bb4f10)
 ### How To Run 
-## Step 01 : Run This Command in bash
+## Step 01 
+### Run This Command First In The Bash
 ```bash :Bash
 # Bash
 alias task_cli='npm run task_cli'
